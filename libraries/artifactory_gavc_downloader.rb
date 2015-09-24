@@ -17,7 +17,7 @@ class ArtifactoryDownloader
     repos = repos.join(',') unless repos.is_a? String
     newest_version = find_newest_version_for_coordinates(group: group, artifact: artifact, version: version, repos: repos)
     resolved_artifact = get_artifact_with_coordinates(group: group, artifact: artifact, version: newest_version, classifier: classifier, packaging: packaging, repos: repos)
-    raise DependencyResolutionError.new("Error resolving artifact with group: #{group}, name: #{artifact}, version constraint #{version}") if artifact.nil?
+    raise DependencyResolutionError.new("Error resolving artifact with group: #{group}, name: #{artifact}, version constraint #{version}") if resolved_artifact.nil?
     resolved_artifact.download_uri
   end
 
@@ -44,7 +44,8 @@ class ArtifactoryDownloader
                                     packaging: raise('packaging is required'),
                                     repos: raise('repo(s) are required'))
     artifacts = Artifact.gavc_search(group: group, name: artifact, version: version, classifier: classifier, repos: repos)
-    artifacts.find { |it| it.download_uri.end_with?(packaging) }
+    # We have to do our own classifier matching because doing a gavc search with no classifier returns all artifacts
+    artifacts.find { |it| it.download_uri =~ /#{version}#{"-#{classifier}" if classifier}.#{packaging}/ }
   end
 
   def wildcarded_version?(constraint)

@@ -11,5 +11,15 @@ platforms:
 
 suites:
   - name: default
-    run_list:
+    run_list: recipe[artifactory_rest_lwrp_test::gavc_download]
     attributes:
+      artifactory_rest:
+        gavc_download:
+          endpoint: <%= ENV['ARTIFACTORY_ENDPOINT'] %>
+          path: /tmp/commons-io.jar
+          group_id: commons-io
+          artifact_id: commons-io
+          version: '2.4'
+          classifier: sources
+          repository_keys:
+            - <%= ENV['ARTIFACTORY_REPOSITORY_KEY'] %>

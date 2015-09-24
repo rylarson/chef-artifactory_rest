@@ -8,6 +8,7 @@ provisioner:
 platforms:
   - name: ubuntu-14.04
   - name: centos-7.1
+  - name: opentable/win-2012r2-standard-amd64-nocm
 
 suites:
   - name: default
@@ -20,6 +21,6 @@ suites:
           group_id: commons-io
           artifact_id: commons-io
           version: '2.4'
-          classifier: sources
+          packaging: jar
           repository_keys:
             - <%= ENV['ARTIFACTORY_REPOSITORY_KEY'] %>

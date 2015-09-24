@@ -1,3 +1,5 @@
+directory '/tmp'
+
 artifactory_rest_gavc_download node[:artifactory_rest][:gavc_download][:path] do
   # Required
   group_id node[:artifactory_rest][:gavc_download][:group_id]

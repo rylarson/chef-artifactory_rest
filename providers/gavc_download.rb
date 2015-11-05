@@ -15,7 +15,7 @@ action :download do
                                                    packaging: new_resource.packaging)
 
     # Delegate to remote_file for idempotency
-    remote_file "Downloading file #{download_uri} by: #{new_resource.to_s}" do
+    remote_file "Downloading file #{download_uri} specified by: #{new_resource.to_s}" do
       source download_uri
       path new_resource.path
     end

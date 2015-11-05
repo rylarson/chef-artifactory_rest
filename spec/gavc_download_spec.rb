@@ -46,7 +46,7 @@ describe 'artifactory_rest_lwrp_test::gavc_download' do
                             .with_version(artifact_version)
                             .with_repository_keys(repository_keys)
                             .with_endpoint(endpoint) }
-    it { is_expected.to create_remote_file(%r[.+#{download_uri}.+#{group_id}.+#{artifact_id}.+#{artifact_version}.+]).with_source(download_uri) }
+    it { is_expected.to create_remote_file(%r[.+#{download_uri} specified by: .+#{group_id}.+#{artifact_id}.+#{artifact_version}.+]).with_source(download_uri) }
   end
 
   context 'with classifier set' do
@@ -73,7 +73,7 @@ describe 'artifactory_rest_lwrp_test::gavc_download' do
                             .with_version(artifact_version)
                             .with_repository_keys(repository_keys)
                             .with_endpoint(endpoint) }
-    it { is_expected.to create_remote_file(%r[.+#{download_uri}.+#{group_id}.+#{artifact_id}.+#{artifact_version}.+#{classifier}.+])
+    it { is_expected.to create_remote_file(%r[.+#{download_uri} specified by: .+#{group_id}.+#{artifact_id}.+#{artifact_version}.+#{classifier}.+])
                             .with_source(download_uri) }
   end
 end

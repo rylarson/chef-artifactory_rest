@@ -16,7 +16,7 @@ This is basically `remote_file` where the source is defined as Artifactory GAVC 
 
 | Name | Type | Description | Default | Required
 | ---- | ---- | ----------- | ------- | --------
-| path | String | Path to directory in which file be downloaded | n/a | yes
+| path | String | Path to which file be downloaded | n/a | yes
 | endpoint | String | Artifactory instance URI | n/a | yes
 | group_id | String | Group for GAVC search | n/a | yes
 | artifact_id | String | Artifact for GAVC search | n/a | yes
@@ -27,11 +27,11 @@ This is basically `remote_file` where the source is defined as Artifactory GAVC 
 
 #### Usage
 
-The following will download the commons-io-2.4-sources.jar file to `/tmp/downloads`, assuming that Artifactory
+The following will download the `commons-io-2.4-sources.jar` file to `/tmp/downloads`, assuming that Artifactory
 at `http://artifactory.mycompany.com/artifactory` has that artifact in its `maven-central-cache` repository.
 
 ```ruby
-artifactory_rest_gavc_download '/tmp/downloads' do
+artifactory_rest_gavc_download '/tmp/downloads/commons-io-2.4-sources.jar' do
   # Required
   group_id 'commons-io'
   artifact_id 'commons-io'

@@ -1,7 +1,7 @@
 actions :download
 default_action :download
 
-attribute :path,     :kind_of => String, :required => true
+attribute :path, :name_attribute => true, :kind_of => String, :required => true
 attribute :endpoint, :kind_of => String, :required => true
 attribute :username, :kind_of => String, :required => false
 attribute :password, :kind_of => String, :required => false

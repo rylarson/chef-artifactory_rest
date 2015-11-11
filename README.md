@@ -33,7 +33,7 @@ The following will download the `commons-io-2.4-sources.jar` file to `/tmp/downl
 at `http://artifactory.mycompany.com/artifactory` has that artifact in its `maven-central-cache` repository.
 
 ```ruby
-artifactory_rest_gavc_download 'commons-io' do
+artifactory_rest_gavc_download '/tmp/downloads/commons-io-2.4-sources.jar' do
   # Required
   group_id 'commons-io'
   artifact_id 'commons-io'
@@ -41,7 +41,6 @@ artifactory_rest_gavc_download 'commons-io' do
   version '2.*'
   repository_keys 'maven-central-cache'
   packaging 'jar'
-  path '/tmp/downloads'
 
   # Optional
   classifier 'sources'

@@ -15,7 +15,6 @@ action :download do
                                                  classifier: new_resource.classifier,
                                                  repos: new_resource.repository_keys,
                                                  packaging: new_resource.packaging)
-  file_name = ::File.basename(download_uri)
 
   resource_name = "Downloading file #{download_uri} specified by: #{new_resource.to_s}"
   if new_resource.username && new_resource.password then
@@ -23,9 +22,9 @@ action :download do
   end
   converge_by(resource_name) do
     # Delegate to remote_file for idempotency
-    remote_file file_name do
+    remote_file resource_name do
       source download_uri
-      path "#{new_resource.path}/#{file_name}"
+      path new_resource.path
     end
   end
 end

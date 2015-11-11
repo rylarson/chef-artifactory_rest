@@ -1,7 +1,7 @@
 actions :download
 default_action :download
 
-attribute :path, :name_attribute => true, :kind_of => String, :required => true
+attribute :path,     :kind_of => String, :required => true
 attribute :endpoint, :kind_of => String, :required => true
 attribute :username, :kind_of => String, :required => false
 attribute :password, :kind_of => String, :required => false
@@ -13,5 +13,5 @@ attribute :packaging, :kind_of => String, :required => true, :default => nil
 attribute :repository_keys, :kind_of => Array, :required => true
 
 def to_s
-  "group: #{group_id}, artifact id: #{artifact_id}, version: #{version}, classifier: #{classifier}, repository_keys: #{repository_keys.inspect}"
+  "group: #{group_id}, artifact id: #{artifact_id}, version: #{version}, classifier: #{classifier}, packaging: #{packaging}, repository_keys: #{repository_keys.inspect}"
 end

@@ -19,6 +19,9 @@ action :download do
   resource_name = "Downloading file #{download_uri} specified by: #{new_resource.to_s}"
   if new_resource.username && new_resource.password then
     download_uri.sub!(/^(.*):\/\//, "\\1://#{new_resource.username}:#{new_resource.password}@")
+    if (!download_uri.include?(new_resource.username) || !download_uri.include?(new_resource.password)) then
+      Chef::Application.fatal!("Username and/or password not found in download uri!", 1)
+    end
   end
   converge_by(resource_name) do
     # Delegate to remote_file for idempotency

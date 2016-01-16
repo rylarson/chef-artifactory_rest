@@ -18,6 +18,8 @@ This is basically `remote_file` where the source is defined as Artifactory GAVC 
 | ---- | ---- | ----------- | ------- | --------
 | path | String | Path to which file be downloaded | n/a | yes
 | endpoint | String | Artifactory instance URI | n/a | yes
+| username | String | Artifactory username | n/a | no
+| password | String | Artifactory password | n/a | no
 | group_id | String | Group for GAVC search | n/a | yes
 | artifact_id | String | Artifact for GAVC search | n/a | yes
 | version | String | Version for GAVC search | n/a | yes

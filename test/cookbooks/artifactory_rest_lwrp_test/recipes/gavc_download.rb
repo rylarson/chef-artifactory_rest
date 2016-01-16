@@ -10,5 +10,7 @@ artifactory_rest_gavc_download node[:artifactory_rest][:gavc_download][:path] do
   packaging node[:artifactory_rest][:gavc_download][:packaging]
 
   # Optional
+  username node[:artifactory_rest][:gavc_download][:username]
+  password node[:artifactory_rest][:gavc_download][:password]
   classifier node[:artifactory_rest][:gavc_download][:classifier] if node[:artifactory_rest][:gavc_download][:classifier]
 end

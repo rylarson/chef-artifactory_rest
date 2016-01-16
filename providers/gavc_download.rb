@@ -16,10 +16,10 @@ action :download do
                                                  repos: new_resource.repository_keys,
                                                  packaging: new_resource.packaging)
 
-  resource_name = "Downloading file #{download_uri} specified by: #{new_resource.to_s}"
   if new_resource.username && new_resource.password then
-    download_uri.sub!(/^(.*):\/\//, "\\1://#{new_resource.username}:#{new_resource.password}@")
+    download_uri = download_uri.sub('://', "://#{new_resource.username}:#{new_resource.password}@")
   end
+  resource_name = "Downloading file #{download_uri} specified by: #{new_resource.to_s}"
   converge_by(resource_name) do
     # Delegate to remote_file for idempotency
     remote_file resource_name do

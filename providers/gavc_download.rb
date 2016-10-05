@@ -16,13 +16,13 @@ action :download do
                                                  repos: new_resource.repository_keys,
                                                  packaging: new_resource.packaging)
 
-  if new_resource.username && new_resource.password then
-    download_uri = download_uri.sub('://', "://#{new_resource.username}:#{new_resource.password}@")
-  end
   resource_name = "Downloading file #{download_uri} specified by: #{new_resource.to_s}"
   converge_by(resource_name) do
     # Delegate to remote_file for idempotency
     remote_file resource_name do
+      if new_resource.username && new_resource.password then
+        headers "Authorization" => "Basic #{::Base64.encode64("#{new_resource.username}:#{new_resource.password}").chomp()}"
+      end
       source download_uri
       path new_resource.path
     end

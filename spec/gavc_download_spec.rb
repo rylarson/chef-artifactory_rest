@@ -50,13 +50,10 @@ describe 'artifactory_rest_lwrp_test::gavc_download' do
   end
 
   context 'with authentication set' do
-    let(:endpoint_with_auth) { endpoint.sub('://', "://#{username}:#{password}@") }
-    let(:download_uri_path) { "api/storage/#{resolved_repo}/#{group_id}/#{artifact_id}/#{resolved_version}/#{artifact_id}-#{resolved_version}.jar" }
-    let(:download_uri_with_auth) {"#{endpoint_with_auth}/#{download_uri_path}"}
-    let(:download_uri) {"#{endpoint}/#{download_uri_path}"}
+    let(:download_uri) {"#{endpoint}/api/storage/#{resolved_repo}/#{group_id}/#{artifact_id}/#{resolved_version}/#{artifact_id}-#{resolved_version}.jar"}
     let(:username) { 'artifactory_user' }
-    let(:password) { 'artifactory_password' }
-    let(:expected_remote_file_name) { %r[.+#{download_uri_with_auth} specified by: .+#{group_id}.+#{artifact_id}.+#{artifact_version}.+] }
+    let(:password) { 'artifactory_password_!$%&@_special_chars' }
+    let(:headers) { { 'Authorization' => "Basic YXJ0aWZhY3RvcnlfdXNlcjphcnRpZmFjdG9yeV9wYXNzd29yZF8hJCUmQF9z\ncGVjaWFsX2NoYXJz" } }
     subject(:chef_run) do
       mock_artifactory_search_results
 
@@ -78,9 +75,11 @@ describe 'artifactory_rest_lwrp_test::gavc_download' do
                             .with_artifact_id(artifact_id)
                             .with_version(artifact_version)
                             .with_repository_keys(repository_keys)
-                            .with_endpoint(endpoint) }
-    it { is_expected.to create_remote_file(expected_remote_file_name)
-                            .with_source(download_uri_with_auth) }
+                            .with_endpoint(endpoint)
+                            .with_username(username)
+                            .with_password(password) }
+    it { is_expected.to create_remote_file(download_path)
+                            .with(headers: headers) }
   end
 
   context 'with classifier set' do

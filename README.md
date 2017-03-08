@@ -39,7 +39,7 @@ artifactory_rest_gavc_download '/tmp/downloads/commons-io-2.4-sources.jar' do
   artifact_id 'commons-io'
   endpoint 'http://artifactory.mycompany.com/artifactory'
   version '2.*'
-  repository_keys 'maven-central-cache'
+  repository_keys ['maven-central-cache']
   packaging 'jar'
 
   # Optional
